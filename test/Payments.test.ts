@@ -46,19 +46,35 @@ describe("Payments contract", () => {
   });
 
   it("should be paid by user2", async () => {
-    const { user1, user2, payments } = await loadFixture(deploy);
+    const { user2, payments } = await loadFixture(deploy);
 
     const sum = 100; // wei
     const msg = "hellow form hh";
 
-    await payments.connect(user2).pay(msg, { value: sum });
+    const tx = await payments.connect(user2).pay(msg, { value: sum });
+    await tx.wait(1);
 
-    const contractBalance = await ethers.provider.getBalance(payments.target);
-    const user1Balance = await ethers.provider.getBalance(user1.address);
-    const user2Balance = await ethers.provider.getBalance(user2.address);
+    await expect(tx).to.changeEtherBalance(user2, -sum);
+  });
 
-    expect(contractBalance).to.be.eq(100);
-    expect(user2Balance).to.be.lessThan(10000000000000000000000n);
-    expect(user1Balance).to.be.lessThan(10000000000000000000000n);
+  it("payments map should be updated after tx", async () => {
+    const { user2, payments } = await loadFixture(deploy);
+
+    const sum = 100; // wei
+    const msg = "hellow form hh";
+
+    const tx = await payments.connect(user2).pay(msg, { value: sum });
+    await tx.wait(1);
+
+    const currentBlock = await ethers.provider.getBlock(
+      await ethers.provider.getBlockNumber()
+    );
+
+    const newPayment = await payments.getPayment(user2.address, 0);
+
+    expect(newPayment.message).to.eq(msg);
+    expect(newPayment.amount).to.eq(sum);
+    expect(newPayment.from).to.eq(user2.address);
+    expect(newPayment.timestamp).to.eq(currentBlock?.timestamp);
   });
 });

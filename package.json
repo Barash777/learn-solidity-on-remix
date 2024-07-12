@@ -1,0 +1,26 @@
+{
+  "name": "learn-solidity-on-remix",
+  "version": "1.0.0",
+  "description": "Just learning web3 based on these lessons: https://www.youtube.com/watch?v=8A8-7Ks26yY&list=PLWlFXymvoaJ_0ok740kLXTn5qn-i1UnYr&index=1",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx hardhat test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Barash777/learn-solidity-on-remix.git"
+  },
+  "keywords": [
+    "solidity"
+  ],
+  "author": "Barash777",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Barash777/learn-solidity-on-remix/issues"
+  },
+  "homepage": "https://github.com/Barash777/learn-solidity-on-remix#readme",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.6"
+  }
+}

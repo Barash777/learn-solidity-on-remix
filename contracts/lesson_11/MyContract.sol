@@ -10,7 +10,9 @@ contract MyContract is Ownable, Balances {
         owner = _owner;
     }
 
-    function withdraw(address payable _to) public override(Ownable, Balances) onlyOwner {
+    function withdraw(
+        address payable _to
+    ) public override(Ownable, Balances) onlyOwner {
         // Balances.withdraw(_to); // equal to 'super.withdraw(_to);'
         // Ownable.withdraw(_to);
         require(_to != address(0), "zero address");

@@ -8,11 +8,17 @@ contract LibDemo {
     using LibraryStrExt for string;
     using LibraryArrayExt for uint[];
 
-    function compareStrings(string memory str1, string memory str2) public pure returns(bool) {
+    function compareStrings(
+        string memory str1,
+        string memory str2
+    ) public pure returns (bool) {
         return str1.eq(str2);
     }
 
-    function findElement(uint[] memory array, uint element) public pure returns(bool) {
+    function findElement(
+        uint[] memory array,
+        uint element
+    ) public pure returns (bool) {
         return array.inArray(element);
     }
 }

@@ -4,7 +4,11 @@ pragma solidity ^0.8.0;
 
 contract Demo {
     // Enum
-    enum Status { Paid, Delivered, Received }
+    enum Status {
+        Paid,
+        Delivered,
+        Received
+    }
     Status public currentStatus;
 
     function paid() public {
@@ -20,22 +24,20 @@ contract Demo {
     uint[3][2] public items;
 
     function fixedSize() public {
-        items = [
-            [3,4,5],
-            [6,7,8]
-        ];
+        items = [[3, 4, 5], [6, 7, 8]];
     }
 
     // Dynamic
     uint[] public dItems;
     uint public len;
+
     function dynArr() public {
         dItems.push(4);
         dItems.push(5);
         len = dItems.length;
     }
 
-    function sampleMemory() public pure returns(uint[] memory) {
+    function sampleMemory() public pure returns (uint[] memory) {
         uint[] memory tempArray = new uint[](10);
         tempArray[0] = 1;
         return tempArray;
@@ -44,11 +46,12 @@ contract Demo {
     // Byte
     bytes32 public myVar = "test here"; // fixed
     bytes public myDynVar = "test here"; // dynamic
+
     // 1 --> 32
     // 32 * 8 = 256
     // uint256
 
-    function firstByte() public view returns(bytes1) {
+    function firstByte() public view returns (bytes1) {
         return myDynVar[0];
     }
 
@@ -67,7 +70,10 @@ contract Demo {
 
     mapping(address => Balance) public balances;
 
-    function getPayment(address _addr, uint _index) public view returns(Payment memory) {
+    function getPayment(
+        address _addr,
+        uint _index
+    ) public view returns (Payment memory) {
         return balances[_addr].payments[_index];
     }
 

@@ -3,9 +3,8 @@
 pragma solidity ^0.8.0;
 
 contract MyShop {
-
     address public owner;
-    mapping (address => uint) public payments;
+    mapping(address => uint) public payments;
 
     constructor() {
         owner = msg.sender;

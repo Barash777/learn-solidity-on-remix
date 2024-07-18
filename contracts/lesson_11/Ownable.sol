@@ -14,8 +14,8 @@ contract Ownable {
         _;
     }
 
-    // function withdraw(address payable _to) public virtual onlyOwner {
-    function withdraw() public virtual onlyOwner {
+    function withdraw(address payable _to) public virtual onlyOwner {
+    // function withdraw() public virtual onlyOwner {
         payable(owner).transfer(address(this).balance);
     }
 }

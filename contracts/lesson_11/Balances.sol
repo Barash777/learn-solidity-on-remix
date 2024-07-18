@@ -10,7 +10,7 @@ abstract contract Balances is Ownable {
     }
 
     // function withdraw(address payable _to) public override virtual onlyOwner {
-    function withdraw(address payable _to) public virtual onlyOwner {
+    function withdraw(address payable _to) public override virtual onlyOwner {
         _to.transfer(getBalance());
     }
 }

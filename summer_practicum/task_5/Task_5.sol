@@ -11,6 +11,17 @@ contract A {
     function decByOne() public virtual {
         number--;
     }
+
+    function callChangeOwner(
+        address _contractAddress,
+        address _newOwner
+    ) external {
+        (bool success, ) = _contractAddress.call(
+            abi.encodeWithSignature("changeOwner(address)", _newOwner)
+        );
+
+        require(success, "can't set new owner!");
+    }
 }
 
 contract B is A {
@@ -34,5 +45,13 @@ contract B is A {
     function decByOne() public override {
         super.decByOne();
         emit NumberChanged(number);
+    }
+}
+
+contract C is B {
+    address public owner;
+
+    function changeOwner(address _newAddress) public {
+        owner = _newAddress;
     }
 }

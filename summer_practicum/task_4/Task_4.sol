@@ -2,7 +2,11 @@
 pragma solidity ^0.8.0;
 
 contract Task_4 {
-    address owner = 0x5c6B0f7Bf3E7ce046039Bd8FABdfD3f9F5021678;
+    address owner;
+
+    constructor() {
+        owner = msg.sender;
+    }
 
     uint number = 123;
     address wallet = 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4;

@@ -16,8 +16,9 @@ contract Practicum_1 {
     }
 
     mapping(address => uint) payments;
+    mapping(address => string) public paymentsMessages;
 
-    uint[] DArray;
+    uint[] public DArray;
 
     modifier isOwner(address _to) {
         require(_to == owner, "You are not an owner");
@@ -29,7 +30,8 @@ contract Practicum_1 {
         _;
     }
 
-    mapping(address => mapping(uint => bool)) paymentStatus;
+    // странный мэппинг, не придумал вариант из жизни, но для обучения пойдет :)
+    mapping(address => mapping(uint => bool)) public paymentStatus;
 
     struct Payment {
         uint amount;
@@ -39,10 +41,12 @@ contract Practicum_1 {
     struct Person {
         string name;
         uint8 age;
-        Payment[] payments; // array of structures
+        Payment payment;
     }
 
-    mapping(address => Person) clients;
+    mapping(address => Person) public clients;
+
+    Payment[] public paymentsArray;
 
     function changeOwner(address _newOwner) public isZeroAddress(_newOwner) {
         owner = _newOwner;
@@ -65,16 +69,52 @@ contract Practicum_1 {
         DArray.pop();
     }
 
-    function removeElementFromDArray(uint _element) public {
-        for (uint i = DArray.length; i >= 0; i--) {
-            if (DArray[i] == _element) {
-                delete DArray[i];
-                return;
-            }
+    function removeElementByIndexFromDArray(uint _index) public {
+        require(DArray.length > _index, "index is out of the array length!");
+
+        for (uint i = _index; i < DArray.length - 1; i++) {
+            DArray[i] = DArray[i + 1];
         }
+
+        DArray.pop();
     }
 
     function getDArraySize() public view returns (uint) {
         return DArray.length;
+    }
+
+    function addPaymentStatus(
+        address _address,
+        uint _amount,
+        bool _received
+    ) public {
+        paymentStatus[_address][_amount] = _received;
+    }
+
+    function removePaymentStatus(address _address, uint _amount) public {
+        delete paymentStatus[_address][_amount];
+    }
+
+    function addClient(
+        address _address,
+        string calldata _name,
+        uint8 _age,
+        uint _amount
+    ) public {
+        Person memory person = Person(
+            _name,
+            _age,
+            Payment(_amount, block.timestamp)
+        );
+
+        clients[_address] = person;
+    }
+
+    function addNewPayment(uint _amount) public {
+        paymentsArray.push(Payment(_amount, block.timestamp));
+    }
+
+    function pay() public payable {
+        paymentsMessages[msg.sender] = "We received ETH from this address";
     }
 }

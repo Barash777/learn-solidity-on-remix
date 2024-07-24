@@ -3,6 +3,7 @@
 .states/
 node_modules
 .env
+.deps/
 
 # Hardhat files
 /cache

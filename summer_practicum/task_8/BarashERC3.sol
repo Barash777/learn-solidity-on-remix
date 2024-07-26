@@ -39,7 +39,13 @@ abstract contract BarashERC20_3 is BarashERC20, Ownable {
     function transfer(
         address to,
         uint256 value
-    ) public override(BarashERC20) moreThanZero(value) returns (bool) {
+    )
+        public
+        override(BarashERC20)
+        moreThanZero(value)
+        isAddressBlocked(to)
+        returns (bool)
+    {
         return super.transfer(to, value);
     }
 
@@ -47,7 +53,14 @@ abstract contract BarashERC20_3 is BarashERC20, Ownable {
         address from,
         address to,
         uint256 value
-    ) public override(BarashERC20) moreThanZero(value) returns (bool) {
+    )
+        public
+        override(BarashERC20)
+        moreThanZero(value)
+        isAddressBlocked(from)
+        isAddressBlocked(to)
+        returns (bool)
+    {
         return super.transferFrom(from, to, value);
     }
 

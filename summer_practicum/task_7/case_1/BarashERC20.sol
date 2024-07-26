@@ -3,7 +3,7 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-abstract contract BarashERC is IERC20 {
+abstract contract BarashERC20 is IERC20 {
     mapping(address account => uint256) private _balances;
 
     mapping(address account => mapping(address spender => uint256))

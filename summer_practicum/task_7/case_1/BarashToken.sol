@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import "./BarashERC.sol";
+import "./BarashERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract BarashToken is BarashERC, Ownable {
-    constructor() BarashERC("Barash", "BRSH", 6) Ownable(msg.sender) {
+contract BarashToken is BarashERC20, Ownable {
+    constructor() BarashERC20("Barash", "BRSH", 6) Ownable(msg.sender) {
         _mint(msg.sender, 1000000 * 10 ** decimals());
     }
 

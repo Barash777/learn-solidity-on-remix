@@ -5,8 +5,30 @@ import "./AnythingToken.sol";
 import "./SomethingToken.sol";
 
 contract Market is Ownable {
-    SomethingToken public someToken = new SomethingToken();
-    AnythingToken public anyToken = new AnythingToken();
+    // SomethingToken private _someToken = new SomethingToken();
+    // AnythingToken private _anyToken = new AnythingToken();
+    SomethingToken public _someToken;
+    AnythingToken public _anyToken;
 
-    constructor() Ownable(msg.sender) {}
+    // IERC20 public token;
+
+    constructor(
+        address somethingTokenAddress,
+        address anythingTokenAddress
+    ) Ownable(msg.sender) {
+        _someToken = SomethingToken(somethingTokenAddress);
+        _anyToken = AnythingToken(anythingTokenAddress);
+    }
+
+    receive() external payable {
+        uint tokensToBuy = msg.value;
+        require(tokensToBuy > 0, "not enough funds!");
+
+        require(
+            token.balanceOf(address(this)) >= tokensToBuy,
+            "not enough tokens!"
+        );
+
+        // token.transfer(msg.sender, tokensToBuy);
+    }
 }
